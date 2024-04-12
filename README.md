@@ -4,6 +4,8 @@
 
 
 # NLP Analysis of Movie Reviews
-https://github.com/VALDE021/Movies-IMDB-Project/blob/main/Images/Movie%20Review%20Word%20Cloud.png
-![Comparing Lemmas](https://github.com/VALDE021/Movies-IMDB-Project/assets/134979886/f04a2a46-9d23-4833-bcb1-4c998ddf5202)
+![wordclouds-movie-reviews](https://github.com/VALDE021/Movies-IMDB-Project/assets/134979886/c986137f-9032-49fb-8c65-f3564f5d1df6)
+
+![Uploading wordclouds-movie-reviews.png…]()
+
 ![Top 5 NGrams](https://github.com/VALDE021/Movies-IMDB-Project/assets/134979886/79bd35ab-cfc9-4ce5-bfcf-40be9747583d)
