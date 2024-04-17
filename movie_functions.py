@@ -3,7 +3,7 @@ import re
 import matplotlib.pyplot as plt
 import spacy
 import pandas as pd
-import matplotlib as mpl
+import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 import nltk
@@ -27,23 +27,24 @@ from nltk.stem import WordNetLemmatizer
 # Sklearn
 from sklearn.metrics import classification_report, ConfusionMatrixDisplay
 from sklearn.model_selection import train_test_split, GridSearchCV
-from sklearn.pipeline import Pipeline
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import MultinomialNB
 from sklearn import metrics
-from sklearn.model_selection import train_test_split
 from sklearn.pipeline import make_pipeline, Pipeline
-from sklearn.model_selection import GridSearchCV
 from imblearn.under_sampling import RandomUnderSampler
 from sklearn.preprocessing import LabelEncoder
 from sklearn import set_config
 
+set_config(transform_output='pandas')
+pd.set_option('display.max_colwidth', 250)
+
 # Tensorflow Keras
 from tensorflow.keras.layers import TextVectorization
-from tensorflow.keras import layers
 from tensorflow.keras import optimizers
+from tensorflow.keras.models import Sequential
+from tensorflow.keras import layers, optimizers, regularizers
 
 #Imblearn
 from imblearn.under_sampling import RandomUnderSampler
@@ -56,7 +57,8 @@ pd.set_option('display.max_colwidth',300)
 tf.keras.utils.set_random_seed(42)
 tf.random.set_seed(42)
 np.random.seed(42)
-
+# Then run the Enable Deterministic Operations Function
+tf.config.experimental.enable_op_determinism()
 # Then run the Enable Deterministic Operations Function
 tf.config.experimental.enable_op_determinism()
 
@@ -431,3 +433,46 @@ def preprocess_doc(doc, remove_stopwords=True, remove_punct=True, use_lemmas=Fal
         else:
             tokens.append(token.text.lower())
     return tokens
+
+
+# Defining params combined
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+
+def params_combined(X, y, model):
+    """
+    Combine train-test split and model training.
+    
+    Parameters:
+        X: array-like, shape (n_samples, n_features)
+            Features.
+        y: array-like, shape (n_samples,)
+            Labels.
+        model: scikit-learn estimator object
+            The model to train.
+            
+    Returns:
+        model: scikit-learn estimator object
+            Trained model.
+        X_train: array-like, shape (n_train_samples, n_features)
+            Features for training.
+        X_test: array-like, shape (n_test_samples, n_features)
+            Features for testing.
+        y_train: array-like, shape (n_train_samples,)
+            Labels for training.
+        y_test: array-like, shape (n_test_samples,)
+            Labels for testing.
+    """
+    # Split the data into training and testing sets
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    
+    # Train the model
+    model.fit(X_train, y_train)
+    
+    # Return trained model and train-test split data
+    return model, X_train, X_test, y_train, y_test
+
+# Usage example:
+# Assuming X and y are your features and labels, and model is your estimator
+# model, X_train, X_test, y_train, y_test = params_combined(X, y, LinearRegression())
+
