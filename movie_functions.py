@@ -29,7 +29,7 @@ from sklearn.metrics import classification_report, ConfusionMatrixDisplay
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.linear_model import LogisticRegression
+from sklearn.linear_model import LogisticRegression, LogisticRegressionCV
 from sklearn.naive_bayes import MultinomialNB
 from sklearn import metrics
 from sklearn.pipeline import make_pipeline, Pipeline
@@ -138,32 +138,49 @@ def batch_preprocess_texts(
 def classification_metrics(y_true, y_pred, label='',
                            output_dict=False, figsize=(8,4),
                            normalize='true', cmap='Blues',
-                           colorbar=False):
-  # Get the classification report
-  report = classification_report(y_true, y_pred)
-  ## Print header and report
-  header = "-"*70
-  print(header, f" Classification Metrics: {label}", header, sep='\n')
-  print(report)
-  ## CONFUSION MATRICES SUBPLOTS
-  fig, axes = plt.subplots(ncols=2, figsize=figsize)
-  # create a confusion matrix  of raw counts
-  ConfusionMatrixDisplay.from_predictions(y_true, y_pred,
-                normalize=None, cmap='gist_gray', colorbar=colorbar,
-                ax = axes[0],);
-  axes[0].set_title("Raw Counts")
-  # create a confusion matrix with the test data
-  ConfusionMatrixDisplay.from_predictions(y_true, y_pred,
-                normalize=normalize, cmap=cmap, colorbar=colorbar,
-                ax = axes[1]);
-  axes[1].set_title("Normalized Confusion Matrix")
-  # Adjust layout and show figure
-  fig.tight_layout()
-  plt.show()
-  # Return dictionary of classification_report
-  if output_dict==True:
-    report_dict = classification_report(y_true, y_pred, output_dict=True)
-    return report_dict
+                           colorbar=False,values_format=".2f"):
+    """Modified version of classification metrics function from Intro to Machine Learning.
+    Updates:
+    - Reversed raw counts confusion matrix cmap  (so darker==more).
+    - Added arg for normalized confusion matrix values_format
+    """
+    # Get the classification report
+    report = classification_report(y_true, y_pred)
+    
+    ## Print header and report
+    header = "-"*70
+    print(header, f" Classification Metrics: {label}", header, sep='\n')
+    print(report)
+    
+    ## CONFUSION MATRICES SUBPLOTS
+    fig, axes = plt.subplots(ncols=2, figsize=figsize)
+    
+    # Create a confusion matrix  of raw counts (left subplot)
+    ConfusionMatrixDisplay.from_predictions(y_true, y_pred,
+                                            normalize=None, 
+                                            cmap='gist_gray_r',# Updated cmap
+                                            values_format="d", 
+                                            colorbar=colorbar,
+                                            ax = axes[0]);
+    axes[0].set_title("Raw Counts")
+    
+    # Create a confusion matrix with the data with normalize argument 
+    ConfusionMatrixDisplay.from_predictions(y_true, y_pred,
+                                            normalize=normalize,
+                                            cmap=cmap, 
+                                            values_format=values_format, #New arg
+                                            colorbar=colorbar,
+                                            ax = axes[1]);
+    axes[1].set_title("Normalized Confusion Matrix")
+    
+    # Adjust layout and show figure
+    fig.tight_layout()
+    plt.show()
+    
+    # Return dictionary of classification_report
+    if output_dict==True:
+        report_dict = classification_report(y_true, y_pred, output_dict=True)
+        return report_dict
 
 def evaluate_classification(model, X_train, y_train, X_test, y_test,
                          figsize=(6,4), normalize='true', output_dict = False,
@@ -188,9 +205,6 @@ def evaluate_classification(model, X_train, y_train, X_test, y_test,
     results_dict = {'train':results_train,
                     'test': results_test}
     return results_dict
-
-
-
 
 ## PREVIOUS CLASSIFICATION_METRICS FUNCTION FROM INTRO TO ML
 def classification_metrics(y_true, y_pred, label='',
@@ -241,6 +255,7 @@ def classification_metrics(y_true, y_pred, label='',
         return report_dict
 
 
+      
 # Evaluate Classification Network
 def evaluate_classification_network(model, 
                                     X_train=None, y_train=None, 
