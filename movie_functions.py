@@ -24,21 +24,26 @@ from nltk.probability import FreqDist
 from nltk.stem import PorterStemmer
 from nltk.stem import WordNetLemmatizer
 
-# Sklearn
+# Sklearn/Modeling Tools
 from sklearn.metrics import classification_report, ConfusionMatrixDisplay
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.linear_model import LogisticRegression, LogisticRegressionCV
+from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
+from sklearn.linear_model import LogisticRegression, LogisticRegressionCV, LinearRegression
 from sklearn.naive_bayes import MultinomialNB
 from sklearn import metrics
 from sklearn.pipeline import make_pipeline, Pipeline
 from imblearn.under_sampling import RandomUnderSampler
-from sklearn.preprocessing import LabelEncoder
-from sklearn import set_config
+from sklearn.preprocessing import LabelEncoder, StandardScaler, OneHotEncoder, OrdinalEncoder
+from sklearn.compose import make_column_transformer, ColumnTransformer
+from sklearn.impute import SimpleImputer
 
+# Set Dataframe as default output
+from sklearn import set_config
+import joblib
 set_config(transform_output='pandas')
 pd.set_option('display.max_colwidth', 250)
+pd.set_option('display.max_columns',100)
 
 # Tensorflow Keras
 from tensorflow.keras.layers import TextVectorization
