@@ -1,7 +1,4 @@
 import streamlit as st
-# Add title
-st.title("IMDB Movies")
-import streamlit as st
 import pandas as pd
 import numpy as np
 import joblib, json, os, sys
@@ -11,12 +8,15 @@ set_config(transform_output='pandas')
 FILEPATHS_FILE = 'config/filepaths.json'
 with open(FILEPATHS_FILE) as f:
     FPATHS = json.load(f)
-    
+
+# Add title
+st.title("IMDB Movies")
+
 # Define the load raw eda data function with caching
 @st.cache_data
 def load_data(fpath):
     df = pd.read_csv(fpath)
-    df = df.set_index("PID")
+    df = df.set_index("movie_id")
     return df
     
 # Define the load train or test data function with caching
