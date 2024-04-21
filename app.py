@@ -9,8 +9,6 @@ FILEPATHS_FILE = 'config/filepaths.json'
 with open(FILEPATHS_FILE) as f:
     FPATHS = json.load(f)
 
-# Add title
-st.title("IMDB Movies")
 
 # Define the load raw eda data function with caching
 @st.cache_data
@@ -29,6 +27,16 @@ def load_model_ml(fpath):
     return joblib.load(fpath)
     
 ### Start of App
-st.title('House Prices in Ames, Iowa')
+st.title("IMDB Movies"))
 # Include the banner image
 st.image(FPATHS['images']['banner'])
+
+# Load & cache dataframe
+df = load_data(fpath = FPATHS['data']['raw']['full'])
+# Load training data
+X_train, y_train = load_Xy_data(fpath=FPATHS['data']['ml']['train'])
+# Load testing data
+X_test, y_test = load_Xy_data(fpath=FPATHS['data']['ml']['test'])
+# Load model
+linreg = load_model_ml(fpath = FPATHS['models']['linear_regression'])
+
