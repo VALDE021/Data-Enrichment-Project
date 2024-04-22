@@ -38,7 +38,7 @@ def load_model_ml(fpath):
     return joblib.load(fpath)
     
 ### Start of App
-st.title("IMDB Movies"))
+st.title("IMDB Movies")
 # Include the banner image
 st.image(FPATHS['images']['banner'])
 

@@ -496,3 +496,34 @@ def params_combined(X, y, model):
 # Assuming X and y are your features and labels, and model is your estimator
 # model, X_train, X_test, y_train, y_test = params_combined(X, y, LinearRegression())
 
+def classification_metrics_streamlit_tensorflow(model,X_train=None, y_train=None, 
+                                                label='Training Data',
+                                    figsize=(6,4), normalize='true',
+                                    output_dict = False,
+                                    cmap_train='Blues',
+                                    cmap_test="Reds",
+                                    values_format=".2f", 
+                                                class_names = None,
+                                    colorbar=False):
+    
+    ## Check if X_train is a dataset
+    if hasattr(X_train,'map'):
+        # If it IS a Datset:
+        # extract y_train and y_train_pred with helper function
+        y_train, y_train_pred = fn.get_true_pred_labels(model, X_train)
+    else:
+        # Get predictions for training data
+        y_train_pred = model.predict(X_train)
+
+
+     ## Pass both y-vars through helper compatibility function
+    y_train = fn.convert_y_to_sklearn_classes(y_train)
+    y_train_pred = fn.convert_y_to_sklearn_classes(y_train_pred)
+    
+    # Call the helper function to obtain regression metrics for training data
+    report, conf_mat = classification_metrics_streamlit(y_train, y_train_pred, 
+                                                        figsize=figsize,
+                                         colorbar=colorbar, cmap=cmap_train, 
+                                                        values_format=values_format,label=label,
+                                                       class_names=class_names)
+    return report, conf_mat
