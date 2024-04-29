@@ -24,9 +24,12 @@ License
 The Movies IMDB Project is licensed under the MIT License, which means you're free to use, modify, and distribute the project however you like. See the LICENSE file for more details.
 
 
-
-# IMDB Project
+## Data Enrichment 
 - Parts 1-4 Data Enrichment Project
+
+
+
+## Advanced Machine Learning
 - Parts 5-8 Advanced Machine Learning Project
 
 
