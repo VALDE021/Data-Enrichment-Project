@@ -8,13 +8,17 @@ The Movies IMDB Project offers a user-friendly interface where you can search fo
 
 ### Features
 
-#### Search: Easily find movies by title, genre, or release year.
+#### Search: 
+Easily find movies by title, genre, or release year.
 
-#### Details: Get comprehensive information about each movie, including its plot, cast, and rating.
+#### Details: 
+Get comprehensive information about each movie, including its plot, cast, and rating.
 
-#### Rating and Reviews: Share your thoughts and opinions by rating and reviewing movies.
+#### Rating and Reviews: 
+Share your thoughts and opinions by rating and reviewing movies.
 
-#### Favorites: Keep track of your favorite movies by adding them to your list.
+#### Favorites: 
+Keep track of your favorite movies by adding them to your list.
 
 ### Getting Started
 To get started with the Movies IMDB Project, simply visit the project's website and start exploring! There's no need to sign up or install anything – just dive right in and start discovering new movies.
