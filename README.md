@@ -1,7 +1,7 @@
 
 # Movies IMDB Project
 ## Welcome to the Movies IMDB Project! 
-# This project aims to provide an interactive platform for movie enthusiasts to explore and discover movies based on various criteria.
+This project aims to provide an interactive platform for movie enthusiasts to explore and discover movies based on various criteria.
 
 Overview
 The Movies IMDB Project offers a user-friendly interface where you can search for movies, view details about them, and even rate and review your favorites. Whether you're a casual moviegoer or a dedicated cinephile, this project has something for everyone.
